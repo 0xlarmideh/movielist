@@ -9,8 +9,13 @@ import { addMovieToWatchlist } from "@/features/movie/moviesSlice";
 const MovieSearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const watchlist = useSelector((state) => state.movies.watchlist);
 
   const dispatch = useDispatch();
+
+  const isMovieInWatchlist = (movie) => {
+    return watchlist.some((item) => item.id === movie.id);
+  };
 
   const handleSearch = async () => {
     const results = await fetchMoviesByTitle(searchTerm);
@@ -19,10 +24,19 @@ const MovieSearch = () => {
 
   useEffect(() => {
     handleSearch();
+    
   }, [searchTerm]);
+  useEffect(() => {
+    console.log(searchResults);
+  }, [searchResults]);
 
   const handleAddToWatchlist = (movie) => {
-    dispatch(addMovieToWatchlist(movie));
+    if (!isMovieInWatchlist(movie)) {
+      dispatch(addMovieToWatchlist(movie));
+    }
+    else {
+      alert("Movie already in watchlist");
+    }
   };
 
   return (
