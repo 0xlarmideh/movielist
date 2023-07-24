@@ -27,11 +27,6 @@ const MovieSearch = () => {
   };
   const IMAGE_URL = "https://image.tmdb.org/t/p/original";
 
-  
-  useEffect(() => {
-    console.log(searchResults);
-  }, [searchResults]);
-
   const handleAddToWatchlist = (movie) => {
     if (!isMovieInWatchlist(movie)) {
       dispatch(addMovieToWatchlist(movie));
