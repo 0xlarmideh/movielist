@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton, Link } from "@chakra-ui/react";
+import { Box, Flex, Heading, IconButton, Link } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
@@ -11,7 +11,7 @@ const Layout = ({children}) => {
   const dispatch = useDispatch();
   const { isDark } = useSelector((state) => state.theme);
 
-  const borderBottomColor = isDark ? "white" : "black";
+  const routeSlugs = [{ name: "Movies", slug: "/" }, { name: "Watchlist", slug: "/movie-watch-list"}]
   
   const toggleColorMode = () => {
     dispatch(toggleThemeMode());
@@ -23,21 +23,14 @@ const Layout = ({children}) => {
       bg={isDark ? "white" : "black"}
     >
       <nav>
-        <Box p="10px" mb='50px' mx="auto" maxW="900px">
+        <Box px='30px' py="10px" mb="50px" mx="auto" maxW="900px">
           <Flex align="center" justify="space-between">
-            <Flex fontSize="21px" fontWeight={400} gap={4}>
-              <Link
-                as={NextLink}
-                href="/" 
-              >
-                Movies
-              </Link>
-              <Link
-                href="/movie-watch-list"
-                as={NextLink}
-              >
-                Watchlist
-              </Link>
+            <Flex fontSize="21px" fontWeight={400} gap={8}>
+              {routeSlugs.map((route, index) => (
+                <Link _hover={{textDecor: 'none', transform: 'scale(1.2)'}} borderBottom={router.pathname === route.slug ? '4px solid cyan' : '2px solid transparent'} key={index} as={NextLink} href={route?.slug}>
+                  {route?.name}
+                </Link>
+              ))}
             </Flex>
             <IconButton
               mt={4}

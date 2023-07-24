@@ -60,12 +60,14 @@ const MovieSearch = () => {
           icon={<SearchIcon />}
         />
       </Flex>
-      <Center>{isLoading && <Spinner size='xl' color={isDark ? 'black' : 'white'}   /> } </Center>
+      <Center>
+        {isLoading && <Spinner size="xl" color={isDark ? "black" : "white"} />}{" "}
+      </Center>
       {!isLoading && searchResults.length > 0 ? (
         <Grid
           rowGap={12}
           gap={4}
-          templateColumns="repeat(4, 1fr)"
+          templateColumns={{ base: "1fr 1fr", md: "repeat(4, 1fr)" }}
           w="100%"
           mt={2}
         >
@@ -74,8 +76,8 @@ const MovieSearch = () => {
               <Wrap w="100%" overflow="hidden">
                 <Image
                   src={`${IMAGE_URL}${movie?.poster_path}`}
-                  w="100%"
-                  h="300px"
+                  w={{ base: "90%", md: "100%" }}
+                  h={{ base: "450px", md: "300px" }}
                   // objectFit="contain"
                   alt={movie?.title}
                 />
@@ -86,7 +88,7 @@ const MovieSearch = () => {
                   bg="red"
                   mx="auto"
                   color="white"
-                  width="90%"
+                  width={{ base: "90%", md: "100%" }}
                   borderRadius="0"
                 >
                   Add to List
@@ -94,11 +96,12 @@ const MovieSearch = () => {
               </Wrap>
               <Text
                 key={movie?.id}
-                onClick={() => handleAddToWatchlist(movie)}
-                cursor="pointer"
+                mt='14px'
+                fontWeight='500'
                 fontSize="18px"
               >
-                {movie?.title}
+                {movie?.title} (
+                {movie?.release_date && movie?.release_date.slice(0, 4)})
               </Text>
             </Box>
           ))}
