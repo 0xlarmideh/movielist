@@ -1,3 +1,4 @@
+import Layout from "@/components/layout/Layout";
 import store from "@/store/store";
 import "@/styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -6,7 +7,9 @@ export default function App({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <ChakraProvider>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ChakraProvider>
     </Provider>
   );
