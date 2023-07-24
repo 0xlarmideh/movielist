@@ -7,6 +7,8 @@ const store = configureStore({
   },
 });
 
+// Save the watchlist to local storage and get it back when the app loads, also subscribe to the store to save the watchlist to local storage whenever it changes
+
 store.subscribe(() => {
   const { watchlist } = store.getState().movies;
   localStorage.setItem("watchlist", JSON.stringify(watchlist));
