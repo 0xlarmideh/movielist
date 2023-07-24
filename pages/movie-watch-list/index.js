@@ -1,13 +1,15 @@
 import MovieWatchlist from "@/components/MovieWatchList";
-import { Heading } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 
 const Index = () => {
   return (
-    <div>
-      <Heading as="h1">My Watch List</Heading>
+    <Box p="10px" mx="auto" maxW="900px">
+      <Text as="h1" className="text-heading" size="lg" mb={4}>
+        Movie Watchlist
+      </Text>
       <MovieWatchlist />
-    </div>
+    </Box>
   );
 };
 

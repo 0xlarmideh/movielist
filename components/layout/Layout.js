@@ -10,10 +10,7 @@ const Layout = ({children}) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isDark } = useSelector((state) => state.theme);
-  // console.log(isDark);
-  useEffect(() => {
-    console.log(isDark)
-  }, [isDark])
+
   const borderBottomColor = isDark ? "white" : "black";
   
   const toggleColorMode = () => {
@@ -26,13 +23,12 @@ const Layout = ({children}) => {
       bg={isDark ? "white" : "black"}
     >
       <nav>
-        <Box mx="auto" maxW="600px">
+        <Box p="10px" mb='50px' mx="auto" maxW="900px">
           <Flex align="center" justify="space-between">
             <Flex fontSize="21px" fontWeight={400} gap={4}>
               <Link
                 as={NextLink}
-                href="/"
-                
+                href="/" 
               >
                 Movies
               </Link>

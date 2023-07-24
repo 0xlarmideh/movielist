@@ -15,6 +15,7 @@ const StarRating = ({ rating, onChange }) => {
           onClick={() => handleRatingChange(value)}
           style={{
             cursor: "pointer",
+            fontSize: "1.7rem",
             color: value <= rating ? "gold" : "gray",
           }}
         >
