@@ -70,7 +70,7 @@ const MovieWatchlist = () => {
                     handleWatchedToggle(movie?.id, !movie?.watched)
                   }
                 >
-                  <Text fontSize='18px'>
+                  <Text className="oswald" fontWeight='500' fontSize='18px'>
                     {movie?.title} (
                     {movie?.release_date && movie?.release_date.slice(0, 4)})
                   </Text>

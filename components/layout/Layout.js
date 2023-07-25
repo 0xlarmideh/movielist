@@ -19,15 +19,29 @@ const Layout = ({children}) => {
   return (
     <Box
       minH="100vh"
-      color={isDark ? "black" : "white"}
-      bg={isDark ? "white" : "black"}
+      color={isDark ? "white" : "black"}
+      bg={isDark ? "black" : "#EDF7F7"}
     >
       <nav>
-        <Box px='30px' py="10px" mb="50px" mx="auto" maxW="900px">
+        <Box px="30px" py="10px" mb="50px" mx="auto" maxW="900px">
           <Flex align="center" justify="space-between">
             <Flex fontSize="21px" fontWeight={400} gap={8}>
               {routeSlugs.map((route, index) => (
-                <Link _hover={{textDecor: 'none', transform: 'scale(1.2)'}} borderBottom={router.pathname === route.slug ? '4px solid cyan' : '2px solid transparent'} key={index} as={NextLink} href={route?.slug}>
+                <Link
+                  _hover={{
+                    textDecor: "none",
+                    transition: "0.35s all ease-in",
+                    transform: "scale(1.2)",
+                  }}
+                  borderBottom={
+                    router.pathname === route.slug
+                      ? "4px solid #188B8C"
+                      : "2px solid transparent"
+                  }
+                  key={index}
+                  as={NextLink}
+                  href={route?.slug}
+                >
                   {route?.name}
                 </Link>
               ))}
