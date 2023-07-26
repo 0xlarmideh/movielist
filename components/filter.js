@@ -46,6 +46,7 @@ const FilterWatchlist = ({
             borderRadius="8px"
             px="22px"
             py="15px"
+            mb={2}
             color={isDark ? "gainsboro" : "#353746"}
             background={isDark ? "#1F2933" : "whitesmoke"}
             textTransform="capitalize"
