@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Sava - Assessment</title>
+        <title>Movie Watchlist</title>
         <meta
           name="description"
           content="A movie watchlist for Sava Assessment"

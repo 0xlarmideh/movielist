@@ -30,6 +30,7 @@ const Layout = ({children}) => {
           position="fixed"
           w="100%"
           mx="auto"
+          zIndex={999}
         >
           <Flex
             mx="auto"

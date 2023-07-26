@@ -93,7 +93,7 @@ const MovieSearch = () => {
   };
 
   return (
-    <Box>
+    <Box mb='40px'>
       <Text className="text-heading" as="h1" size="lg" mb={4}>
         Search for your{" "}
         <Text className="text-heading" color="#188B8C" as="span">
@@ -235,7 +235,7 @@ const MovieSearch = () => {
           )}
         </Grid>
       ) : null}
-      
+
       {/* Load more button */}
       {searchResults.length > 0 && (
         <Button

@@ -59,7 +59,7 @@ const MovieWatchlist = () => {
       : watchlist;
 
   return (
-    <>
+    <Box mb='50px'>
       <Flex align="center" mb={8} gap={4} w="100%">
         <Text>Filter Watchlist</Text>
         <FilterWatchlist
@@ -116,7 +116,7 @@ const MovieWatchlist = () => {
           </Link>
         </>
       )}
-    </>
+    </Box>
   );
 };
 
