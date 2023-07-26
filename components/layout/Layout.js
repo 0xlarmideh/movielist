@@ -11,8 +11,10 @@ const Layout = ({children}) => {
   const dispatch = useDispatch();
   const { isDark } = useSelector((state) => state.theme);
 
+  // Route slugs
   const routeSlugs = [{ name: "Movies", slug: "/" }, { name: "Watchlist", slug: "/movie-watch-list"}]
   
+  // Function to toggle theme mode
   const toggleColorMode = () => {
     dispatch(toggleThemeMode());
   }
@@ -23,8 +25,20 @@ const Layout = ({children}) => {
       bg={isDark ? "black" : "#EDF7F7"}
     >
       <nav>
-        <Box px="30px" py="10px" mb="50px" mx="auto" maxW="900px">
-          <Flex align="center" justify="space-between">
+        <Box
+          bg={!isDark ? "white" : "#188B8C"}
+          position="fixed"
+          w="100%"
+          mx="auto"
+        >
+          <Flex
+            mx="auto"
+            px="30px"
+            py="10px"
+            maxW="900px"
+            align="center"
+            justify="space-between"
+          >
             <Flex fontSize="21px" fontWeight={400} gap={8}>
               {routeSlugs.map((route, index) => (
                 <Link
@@ -34,8 +48,9 @@ const Layout = ({children}) => {
                     transform: "scale(1.2)",
                   }}
                   borderBottom={
+                    // If current route matches the slug, add border
                     router.pathname === route.slug
-                      ? "4px solid #188B8C"
+                      ? "4px solid #F5A541"
                       : "2px solid transparent"
                   }
                   key={index}
@@ -56,7 +71,7 @@ const Layout = ({children}) => {
           </Flex>
         </Box>
       </nav>
-      {children}
+      <Box pt="110px">{children}</Box>
     </Box>
   );
 };

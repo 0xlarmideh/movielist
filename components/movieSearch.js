@@ -24,6 +24,7 @@ import { addMovieToWatchlist } from "@/features/movie/moviesSlice";
 import { AddIcon, SearchIcon } from "@chakra-ui/icons";
 
 const MovieSearch = () => {
+  // Variables and state values
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loadMore, setLoadMore] = useState(5);
@@ -32,24 +33,35 @@ const MovieSearch = () => {
   const dispatch = useDispatch();
   const { isDark } = useSelector((state) => state.theme);
   const toast = useToast();
+
+  // Check if movie is already in watchlist
   const isMovieInWatchlist = (movie) => {
     return watchlist.some((item) => item.id === movie.id);
   };
 
+  // Function to fetch movies by title
   const handleSearch = async () => {
     setIsLoading(true);
+    // Fetch movies by title
     const results = await fetchMoviesByTitle(searchTerm);
     setSearchResults(results);
     setIsLoading(false);
   };
 
+  // Load more movies (5 at a time) - Lazy loading implementation
   const handleLoadMore = () => {
     setLoadMore(loadMore + 5);
   };
 
+  // Image URL for movie posters
   const IMAGE_URL = "https://image.tmdb.org/t/p/original";
+
+  // Border style for movie cards
   const borderStyle = isDark ? "2px solid gainsboro" : "2px solid black";
+
+  // Function to add movie to watchlist
   const handleAddToWatchlist = (movie) => {
+    // Check if movie is already in watchlist
     if (!isMovieInWatchlist(movie)) {
       dispatch(addMovieToWatchlist(movie));
       toast({
@@ -95,6 +107,7 @@ const MovieSearch = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyPress={(e) => {
+            // If enter key is pressed, search for movies
             if (e.key === "Enter") {
               handleSearch();
             }
@@ -113,8 +126,10 @@ const MovieSearch = () => {
         />
       </Flex>
       <Center>
+      {/* Spinner to indicate loading */}
         {isLoading && <Spinner size="xl" color={isDark ? "white" : "black"} />}{" "}
       </Center>
+      {/* Display search results */}
       {!isLoading && searchResults.length > 0 ? (
         <Grid
           rowGap={12}
@@ -123,8 +138,10 @@ const MovieSearch = () => {
           w="100%"
           mt={2}
         >
+          {/* // Display search results in a grid with Lazy loading */}
           {searchResults.slice(0, loadMore).map(
             (movie, index) =>
+              // Hide movies without posters
               movie?.poster_path && (
                 <Box position="relative" key={index}>
                   <Box
@@ -177,6 +194,7 @@ const MovieSearch = () => {
                           borderRight: borderStyle,
                           borderBottom: borderStyle,
                         }}
+                        // Add movie to watchlist
                         onClick={() => handleAddToWatchlist(movie)}
                       >
                         Add to watchlist
@@ -217,6 +235,8 @@ const MovieSearch = () => {
           )}
         </Grid>
       ) : null}
+      
+      {/* Load more button */}
       {searchResults.length > 0 && (
         <Button
           disabled={searchResults.length === loadMore}

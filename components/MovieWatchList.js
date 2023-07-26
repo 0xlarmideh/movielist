@@ -1,11 +1,8 @@
-// src/components/MovieWatchlist.js
 import React, { useEffect } from "react";
 import { VStack, Checkbox, Box, Image, Text, Button, Grid, Flex, Wrap } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
-
 import StarRating from "./StarRating";
 import {
-  addMovieToWatchlist,
   rateMovie,
   removeMovieFromWatchlist,
   setWatchlist,
@@ -15,37 +12,47 @@ import Link from "next/link";
 import FilterWatchlist from "./filter";
 
 const MovieWatchlist = () => {
-    const IMAGE_URL = "https://image.tmdb.org/t/p/original";
+  // Image URL for movie posters
+  const IMAGE_URL = "https://image.tmdb.org/t/p/original";
+
+  // Variables and state values
   const {watchlist} = useSelector((state) => state.movies);
+  const [filter, setFilter] = React.useState("all");
+  const { isDark } = useSelector((state) => state.theme);
+  const [selectedFilterIndex, setSelectedFilterIndex] = React.useState(0);
+  const borderStyle = isDark ? "2px solid gainsboro" : "2px solid black";
   const dispatch = useDispatch();
 
+  // Load watchlist from local storage
   useEffect(() => {
     let savedWatchlist;
+
+    // Check if window is defined (for server side rendering)
     if (typeof window !== undefined) {
       savedWatchlist = JSON.parse(localStorage.getItem("watchlist") || "[]");
     }
     dispatch(setWatchlist(savedWatchlist));
   }, [dispatch]);
 
-  const [filter, setFilter] = React.useState("all");
-  const { isDark } = useSelector((state) => state.theme);
-  const [selectedFilterIndex, setSelectedFilterIndex] = React.useState(0);
-  const borderStyle = isDark ? "2px solid gainsboro" : "2px solid black";
-
-
+  // Function to handle rating change
   const handleRatingChange = (id, rating) => {
     dispatch(rateMovie({ id, rating }));
   };
 
+  // Function to handle watched status toggle
   const handleWatchedToggle = (id, watched) => {
     dispatch(toggleWatchedStatus({ id, watched }));
   };
 
+  // Function to handle remove movie from watchlist
   const handleRemoveMovie = (id) => {
     dispatch(removeMovieFromWatchlist(id));
   };
+
+  // Filter data array
   const filterData = ['all', 'watched']
   
+  // Filter watchlist based on filter
   const filteredWatchlist =
     filter === "watched"
       ? watchlist.filter((movie) => movie.watched)
@@ -99,7 +106,8 @@ const MovieWatchlist = () => {
             </Flex>
           ))}
       </Grid>
-
+      
+      {/* // If watchlist is empty */}
       {watchlist?.length <= 0 && (
         <>
           <Text fontSize={'21px'}>No movies in the watchlist</Text>

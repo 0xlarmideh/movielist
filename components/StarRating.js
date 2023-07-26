@@ -3,6 +3,7 @@ import React from "react";
 import { Box } from "@chakra-ui/react";
 
 const StarRating = ({ rating, onChange }) => {
+  // Function to handle rating change
   const handleRatingChange = (newRating) => {
     onChange(newRating);
   };

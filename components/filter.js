@@ -1,7 +1,7 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import React from 'react'
 
-
+// Filter component
 const FilterWatchlist = ({
   data,
   setSelectedFilterIndex,
