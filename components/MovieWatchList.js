@@ -30,6 +30,8 @@ const MovieWatchlist = () => {
   const [filter, setFilter] = React.useState("all");
   const { isDark } = useSelector((state) => state.theme);
   const [selectedFilterIndex, setSelectedFilterIndex] = React.useState(0);
+  const borderStyle = isDark ? "2px solid gainsboro" : "2px solid black";
+
 
   const handleRatingChange = (id, rating) => {
     dispatch(rateMovie({ id, rating }));
@@ -50,10 +52,17 @@ const MovieWatchlist = () => {
       : watchlist;
 
   return (
-    <><Flex align='center' mb={8} gap={4} w="100%">
-      <Text>Filter Watchlist</Text>
-      <FilterWatchlist data={filterData} isDark={isDark} selectedFilterIndex={selectedFilterIndex} setSelectedFilterIndex={setSelectedFilterIndex} setFilter={setFilter} />
-    </Flex>
+    <>
+      <Flex align="center" mb={8} gap={4} w="100%">
+        <Text>Filter Watchlist</Text>
+        <FilterWatchlist
+          data={filterData}
+          isDark={isDark}
+          selectedFilterIndex={selectedFilterIndex}
+          setSelectedFilterIndex={setSelectedFilterIndex}
+          setFilter={setFilter}
+        />
+      </Flex>
       <Grid gap={8} templateColumns={{ base: "1fr", md: "1fr 1fr" }}>
         {watchlist.length > 0 &&
           filteredWatchlist.map((movie) => (
@@ -70,7 +79,7 @@ const MovieWatchlist = () => {
                     handleWatchedToggle(movie?.id, !movie?.watched)
                   }
                 >
-                  <Text className="oswald" fontWeight='500' fontSize='18px'>
+                  <Text className="oswald" fontWeight="500" fontSize="18px">
                     {movie?.title} (
                     {movie?.release_date && movie?.release_date.slice(0, 4)})
                   </Text>
@@ -91,7 +100,14 @@ const MovieWatchlist = () => {
           ))}
       </Grid>
 
-      {watchlist?.length < 0 && <Text>No movies in the watchlist</Text>}
+      {watchlist?.length <= 0 && (
+        <>
+          <Text fontSize={'21px'}>No movies in the watchlist</Text>
+          <Link href="/">
+            <Button mt='14px' display='block' fontSize='21px' mx='auto' bg={"#188B8C"} color='white' borderBottom={borderStyle} borderRight={borderStyle}>Go to movies</Button>
+          </Link>
+        </>
+      )}
     </>
   );
 };

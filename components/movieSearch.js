@@ -48,7 +48,7 @@ const MovieSearch = () => {
   };
 
   const IMAGE_URL = "https://image.tmdb.org/t/p/original";
-  const borderStyle = isDark ? "2px solid white" : "2px solid black";
+  const borderStyle = isDark ? "2px solid gainsboro" : "2px solid black";
   const handleAddToWatchlist = (movie) => {
     if (!isMovieInWatchlist(movie)) {
       dispatch(addMovieToWatchlist(movie));
@@ -75,6 +75,7 @@ const MovieSearch = () => {
         duration: 1500,
         isClosable: true,
         position: "top",
+
       });
     }
   };
@@ -93,12 +94,22 @@ const MovieSearch = () => {
           placeholder="Search movies by title"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          width={"100%"}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              handleSearch();
+            }
+          }}
+          maxWidth="350px"
         />
         <IconButton
           onClick={handleSearch}
           aria-label="Search"
           icon={<SearchIcon />}
+          color="white"
+          width="60px"
+          bg={"#188B8C"}
+          borderRight={borderStyle}
+          borderBottom={borderStyle}
         />
       </Flex>
       <Center>
@@ -108,7 +119,7 @@ const MovieSearch = () => {
         <Grid
           rowGap={12}
           gap={4}
-          templateColumns={{ base: "1fr 1fr", md: "repeat(3, 1fr)" }}
+          templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
           w="100%"
           mt={2}
         >
@@ -128,8 +139,8 @@ const MovieSearch = () => {
                   >
                     <Image
                       src={`${IMAGE_URL}${movie?.poster_path}`}
-                      w={{ base: "90%", md: "100%" }}
-                      h={{ base: "450px", md: "390px" }}
+                      w="100%"
+                      h={{ base: "100%", md: "350px" }}
                       objectFit="cover"
                       alt={movie?.title}
                     />
@@ -155,7 +166,17 @@ const MovieSearch = () => {
                         </Text>
                       </HStack>
                       <button
-                        style={{ fontSize: '12px', fontWeight: '600', color: "white", background: "#188B8C", marginTop: '10px', padding: '4px 8px', borderRadius: '8px', borderRight: borderStyle, borderBottom: borderStyle }}
+                        style={{
+                          fontSize: "12px",
+                          fontWeight: "600",
+                          color: "white",
+                          background: "#188B8C",
+                          marginTop: "10px",
+                          padding: "4px 8px",
+                          borderRadius: "8px",
+                          borderRight: borderStyle,
+                          borderBottom: borderStyle,
+                        }}
                         onClick={() => handleAddToWatchlist(movie)}
                       >
                         Add to watchlist
@@ -199,8 +220,12 @@ const MovieSearch = () => {
       {searchResults.length > 0 && (
         <Button
           disabled={searchResults.length === loadMore}
+          _active={{ opacity: 0.8 }}
+          _hover={{ opacity: 0.8 }}
+          _focus={{ opacity: 0.8 }}
           onClick={() => handleLoadMore()}
           bg="#188B8C"
+          color="white"
           border={borderStyle}
           borderLeft="none"
           borderTop={"none"}

@@ -13,8 +13,7 @@ const FilterWatchlist = ({
     <Menu>
       <MenuButton
         variant="outline"
-        border="1px solid #DEE1E5"
-        color={!isDark ? "grey" : "#353746"}
+        color={isDark ? "gainsboro" : "#353746"}
         textAlign="left"
         fontSize="14px"
         fontWeight="400"
@@ -22,12 +21,10 @@ const FilterWatchlist = ({
         w="255px"
         as={Button}
         _active={{
-          bg: "white",
+          bg: isDark ? "gainsboro" : "transparent",
           color: isDark ? "grey" : "#353746",
-          border: "1px solid #DEE1E5",
         }}
-        textTransform='capitalize'
-        // _hover={{ bg: "white", color: "#353746" }}
+        textTransform="capitalize"
       >
         {data[selectedFilterIndex]}
       </MenuButton>
@@ -36,18 +33,22 @@ const FilterWatchlist = ({
         fontWeight="400"
         p="15px"
         color="#353746"
+        bg={isDark ? "black" : "white"}
         w="255px"
       >
         {data.map((name, index) => (
           <MenuItem
             key={index}
             onClick={() => {
-              setFilter(name)
-              setSelectedFilterIndex(index)}}
+              setFilter(name);
+              setSelectedFilterIndex(index);
+            }}
             borderRadius="8px"
             px="22px"
             py="15px"
-            textTransform='capitalize'
+            color={isDark ? "gainsboro" : "#353746"}
+            background={isDark ? "#1F2933" : "whitesmoke"}
+            textTransform="capitalize"
           >
             {name}
           </MenuItem>
